@@ -78,7 +78,7 @@ describe('My trips', () => {
 
   it('lists reservations newest first with Track on map and Cancel', async () => {
     setSession(token(Math.floor(Date.now() / 1000) + 3600), priya);
-    const fetchMock = vi.fn(async (url: string, init?: RequestInit) => {
+    const fetchMock = vi.fn(async (url: string, _init?: RequestInit) => {
       if (String(url).includes('/cancel')) {
         return { ok: true, json: async () => ({ ...newer, status: 'cancelled' }) };
       }
@@ -110,7 +110,7 @@ describe('My trips', () => {
       false,
     );
 
-    fetchMock.mockImplementation(async (url: string) => {
+    fetchMock.mockImplementation(async (url: string, _init?: RequestInit) => {
       if (String(url).includes('/cancel')) {
         return { ok: true, json: async () => ({ ...newer, status: 'cancelled' }) };
       }
